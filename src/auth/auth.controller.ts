@@ -40,15 +40,14 @@ export class AuthController {
   @Get('/check-token')
   checkToken(@Request() req: Request):LoginResponse {
     const user = req['user'];
-
+    
     return {
       user,
-      token: this.authService.getJWT({ id: user.id})
+      token: this.authService.getJWT({ id: user._id.toString()})
     }
   }
+  
   // LoginResponse
-
-
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   return this.authService.findOne(+id);
