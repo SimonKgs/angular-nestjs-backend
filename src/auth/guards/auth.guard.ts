@@ -23,12 +23,8 @@ export class AuthGuard implements CanActivate {
     try {
       const payload = await this.jwtService.verifyAsync<JwtPayload>(
         token, { secret: process.env.JWT_SEED });
-        console.log('PAYLIOAD', payload);
-        console.log('PAYLIOADID', payload.id);
-        console.log('TYPE', typeof +payload.id);
         
         const user = await this.authService.findUserById( payload.id )
-        console.log(user);
         
         if ( !user ) throw new UnauthorizedException('User not authorized')
         if ( !user.isActive ) throw new UnauthorizedException('User is not active')
@@ -36,7 +32,7 @@ export class AuthGuard implements CanActivate {
         request['user'] = user;
 
     } catch {
-      throw new UnauthorizedException('HERE');
+      throw new UnauthorizedException();
     }
 
     return Promise.resolve(true)
