@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
     (() => {
       const mongoUri = process.env.MONGO_URI;
       console.log('MONGO_URI:', mongoUri);  // Log the MONGO_URI
+      console.log('Environment Variables:', process.env);
+
       return MongooseModule.forRoot(mongoUri, {
         dbName: process.env.MONGO_DB_NAME,
       });
