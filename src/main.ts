@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  
   app.enableCors()
 
   app.useGlobalPipes( 
@@ -12,7 +12,10 @@ async function bootstrap() {
     whitelist: true, 
     forbidNonWhitelisted: true, 
     }) 
-   );
+  );
+
+  console.log(`app running on port ${process.env.PORT}`);
+   
 
   await app.listen( process.env.PORT ?? 3000);
 }
