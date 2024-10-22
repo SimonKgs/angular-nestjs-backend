@@ -6,9 +6,13 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI, {
-      dbName: process.env.MONGO_DB_NAME
-    }),
+    (() => {
+      const mongoUri = process.env.MONGO_URI;
+      console.log('MONGO_URI:', mongoUri);  // Log the MONGO_URI
+      return MongooseModule.forRoot(mongoUri, {
+        dbName: process.env.MONGO_DB_NAME,
+      });
+    })(),
     AuthModule,
   ],
   controllers: [],
